@@ -1,9 +1,7 @@
 //
 //  FlashView.m
-//  mastergolf
 //
 //  Created by wujungao on 1/26/16.
-//  Copyright © 2016 Master. All rights reserved.
 //
 
 #import "FlashView.h"
