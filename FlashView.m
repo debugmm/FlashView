@@ -133,7 +133,12 @@
 }
 
 #pragma mark - pub method
--(void)setRepeatCount:(CGFloat)count{
+-(void)setLeftIconWith:(NSString *)imageName{
+    
+    self.imageView.image=[UIImage imageNamed:imageName];
+}
+
+-(void)setTextRollAnimationRepeatCount:(CGFloat)count{
     
     self.repeatCount=count;
 }

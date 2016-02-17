@@ -11,7 +11,8 @@
 @interface FlashView : UIView
 
 -(void)startTextRollAnimationWithText:(NSString *)text;
--(void)setRepeatCount:(CGFloat)count;
+-(void)setTextRollAnimationRepeatCount:(CGFloat)count;
+-(void)setLeftIconWith:(NSString *)imageName;
 
 -(instancetype)initWithFrame:(CGRect)frame;
 
