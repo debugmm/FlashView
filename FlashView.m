@@ -9,8 +9,9 @@
 #import "FlashView.h"
 
 #define imageDistanceW 10
-#define imageViewW (20)
-#define imageViewH (20)
+#define imageViewW 20
+#define imageViewH 20
+#define SCREEN_W ([UIScreen mainScreen].bounds.size.width)
 //
 #define maxW ((SCREEN_W) * 10)
 #define maxH (imageViewH)
@@ -19,8 +20,8 @@
 #define placeHoldH (self.bounds.size.height)
 #define nextLabelDistanceW (3*(imageDistanceW))
 //
-#define contentViewDistanceW (imageViewW+imageDistanceW+5)
-#define contentViewW (self.bounds.size.width-contentViewDistanceW)
+#define contentViewDistanceW (((imageViewW)+(imageDistanceW))+5)
+#define contentViewW ((self.bounds.size.width)-(contentViewDistanceW))
 #define contentViewH (placeHoldH)
 //
 #define textAnimationKey (@"textRollAnimation")
@@ -42,6 +43,7 @@
 
 @implementation FlashView
 
+#pragma mark - designated initialization
 -(instancetype)initWithFrame:(CGRect)frame{
     
     self=[super initWithFrame:frame];
@@ -131,6 +133,11 @@
 }
 
 #pragma mark - pub method
+-(void)setRepeatCount:(CGFloat)count{
+    
+    self.repeatCount=count;
+}
+
 -(void)startTextRollAnimationWithText:(NSString *)text{
     
     [self calculateText:text];
@@ -170,7 +177,7 @@
     textRollAnimation.values=@[@(0),@(0),@(-(self.textSize.width+nextLabelDistanceW))];
     textRollAnimation.keyTimes=@[@(0),@(0.03),@(1.0)];
     textRollAnimation.duration=((self.textSize.width+nextLabelDistanceW)/contentViewW)*10;
-    textRollAnimation.repeatCount=(self.repeatCount==0 ? INT32_MAX : self.repeatCount);
+    textRollAnimation.repeatCount=(self.repeatCount<=0 ? INT32_MAX : self.repeatCount);
     textRollAnimation.removedOnCompletion=NO;
     textRollAnimation.autoreverses=NO;
     //
