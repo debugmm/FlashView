@@ -36,6 +36,8 @@
 //
 @property(nonatomic,assign)CGSize textSize;
 @property(nonatomic,assign)CGFloat repeatCount;
+//
+@property(nonatomic,strong)NSString *cachedText;
 
 @end
 
@@ -142,14 +144,39 @@
 }
 
 -(void)startTextRollAnimationWithText:(NSString *)text{
-    
+    //
+    if([NSString isEmptyString:self.cachedText]){
+        
+        self.cachedText=text;
+        //
+        [self startNewTextRollAnimationWithText:text];
+        
+    }else if([self.cachedText isEqualToString:text]){
+        //
+        [self continueNowTextRollAnimation];
+        
+    }else{
+
+        self.cachedText=text;
+        //
+        [self startNewTextRollAnimationWithText:text];
+    }
+}
+
+#pragma mark - internal method
+-(void)continueNowTextRollAnimation{
+    //
+}
+
+-(void)startNewTextRollAnimationWithText:(NSString *)text{
+    //
     [self calculateText:text];
     //
     if((self.textSize.width)>contentViewW){
         //need roll
         [self configFlashLabelViewAndNextLabelFrame];
         self.nextLabel.text=text;
-        
+        //
         [self textRollAnimation];
         
     }else{
@@ -158,7 +185,6 @@
     }
 }
 
-#pragma mark - internal method
 -(void)configFlashLabelViewAndNextLabelFrame{
     
     self.nextLabel.frame=CGRectMake(self.label.frame.size.width+nextLabelDistanceW, 0, self.label.frame.size.width, placeHoldH);
